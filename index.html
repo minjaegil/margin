@@ -3,16 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>margin — Log spending in seconds</title>
-<meta name="description" content="margin is an expense tracker with no sign-up, no ads, and no servers. Your data stays on your phone. Free on iPhone and Android.">
-<meta property="og:title" content="margin — Log spending in seconds">
-<meta property="og:description" content="An expense tracker with no sign-up, no ads, and no servers.">
+<title>margin — Know what you spend. Keep the rest.</title>
+<meta name="description" content="margin is an expense tracker that takes seconds to use. No sign-up, no ads, and every entry stays on your phone. Free on iPhone and Android.">
+<meta property="og:title" content="margin — Know what you spend. Keep the rest.">
+<meta property="og:description" content="An expense tracker that takes seconds to use. No sign-up, no ads, nothing leaves your phone.">
 <meta property="og:image" content="assets/apple-touch-icon.png">
 <meta name="theme-color" content="#F6F4EE" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E0E10" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/InterTight.ttf" as="font" type="font/ttf" crossorigin>
 <style>
+  /* Brand type, hosted here so the page makes no third-party requests (OFL, see assets/fonts/OFL.txt).
+     Korean falls back to the device's own Korean font. */
+  @font-face { font-family: "Inter Tight"; src: url("assets/fonts/InterTight.ttf") format("truetype"); font-weight: 100 900; font-style: normal; font-display: swap; }
+
   /* App tokens (lib/shared/theme/app_colors.dart) */
   :root {
     --bg: #F6F4EE; --surface: #FFFFFF; --muted-surface: #ECE9E1;
@@ -20,6 +25,9 @@
     --ink: #22211F; --on-ink: #F6F4EE; --green: #1A8048;
     --band: #22211F; --band-text: #F1EFEA; --band-muted: #A9A69E;
     --shadow: 0 30px 60px -20px rgba(40,30,10,.28), 0 12px 24px -12px rgba(40,30,10,.18);
+    --f-ko: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    --f-head: "Inter Tight", -apple-system, BlinkMacSystemFont, var(--f-ko);
+    --f-body: "Inter Tight", -apple-system, BlinkMacSystemFont, var(--f-ko);
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -30,16 +38,16 @@
       --shadow: 0 30px 60px -20px rgba(0,0,0,.7);
     }
   }
+  :lang(ko) { --f-body: -apple-system, BlinkMacSystemFont, var(--f-ko); }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Segoe UI", Roboto, sans-serif;
-    -webkit-font-smoothing: antialiased; }
-  :lang(ko) body, :lang(ko) h1, :lang(ko) h2, :lang(ko) p { word-break: keep-all; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 var(--f-body); -webkit-font-smoothing: antialiased; }
+  :lang(ko) body, :lang(ko) h1, :lang(ko) h2, :lang(ko) h3, :lang(ko) p { word-break: keep-all; }
   a { color: inherit; }
   img { display: block; max-width: 100%; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-  @media (max-width: 600px) { .wrap { padding: 0 16px; } }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 24px; }
+  @media (max-width: 600px) { .wrap { padding-inline: 16px; } }
+  .num { font-family: "Inter Tight", var(--f-body); font-variant-numeric: tabular-nums; }
 
   /* Nav */
   header { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 82%, transparent);
@@ -56,77 +64,99 @@
   .btn { display: inline-flex; align-items: center; height: 40px; padding: 0 18px; border-radius: 999px;
     background: var(--ink); color: var(--on-ink); text-decoration: none; font-size: 15px; font-weight: 600; }
   @media (max-width: 480px) { .nav .btn { display: none; } }
+  :focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
 
   /* Hero */
   .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; padding-block: 56px 96px; }
-  .mark { display: inline-flex; width: 64px; height: 18px; margin-bottom: 28px; position: relative; }
-  .mark i { position: absolute; inset: 0; border-radius: 999px; background: var(--green); }
-  .mark b { position: absolute; left: 0; top: 0; bottom: 0; width: 66%; border-radius: 999px; background: var(--ink);
-    animation: spend 1.4s cubic-bezier(.6,0,.2,1) .3s both; }
-  @keyframes spend { from { width: 100%; } to { width: 66%; } }
-  h1 { font-size: clamp(44px, 6.4vw, 80px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; margin: 0 0 24px; }
-  :lang(ko) h1 { letter-spacing: -0.03em; line-height: 1.15; }
-  h1 em { font-style: normal; color: var(--green); }
-  .lead { font-size: clamp(18px, 1.6vw, 21px); color: var(--muted); max-width: 30em; margin: 0 0 36px; }
+  h1 { font: 800 clamp(46px, 6.6vw, 84px)/1.02 var(--f-head); letter-spacing: -0.04em; margin: 0 0 24px; }
+  :lang(ko) h1 { font-weight: 700; letter-spacing: -0.045em; line-height: 1.12; }
+  h1 em, h2 em { font-style: normal; color: var(--green); }
+  .lead { font-size: clamp(18px, 1.6vw, 21px); color: var(--muted); max-width: 28em; margin: 0 0 36px; }
   .stores { display: flex; flex-wrap: wrap; gap: 12px; }
   .store { display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 20px 0 16px; border-radius: 14px;
     background: #000; color: #fff; text-decoration: none; border: 1px solid #3a3a3a; transition: transform .15s ease; }
   .store:hover { transform: translateY(-2px); }
-  .store:focus-visible, .btn:focus-visible, .lang button:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
   .store svg { width: 26px; height: 26px; flex: none; }
   .store span { display: flex; flex-direction: column; line-height: 1.1; }
   .store small { font-size: 11px; letter-spacing: .02em; opacity: .9; }
-  .store strong { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+  .store strong { font: 600 20px/1.1 -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.01em; }
   .meta { margin-top: 16px; font-size: 14px; color: var(--muted); }
 
   .phones { position: relative; height: 620px; }
-  .phone { position: absolute; width: 280px; border-radius: 40px; box-shadow: 0 0 0 9px #1b1b1b, 0 0 0 10px #3a3a3a, var(--shadow);
-    background: #1b1b1b; overflow: hidden; }
+  .phone { position: relative; width: 280px; border-radius: 40px; background: #1b1b1b; overflow: hidden;
+    box-shadow: 0 0 0 9px #1b1b1b, 0 0 0 10px #3a3a3a, var(--shadow); }
   .phone img { width: 100%; aspect-ratio: 1320 / 2868; object-fit: cover; }
+  .phones .phone { position: absolute; }
   .phones .back { right: 0; top: 0; transform: rotate(4deg); }
   .phones .front { left: 4%; top: 60px; transform: rotate(-3deg); }
 
-  /* Promises */
-  .promises { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-bottom: 120px; }
-  .promise { background: var(--surface); border-radius: 24px; padding: 28px; }
-  .promise h3 { margin: 18px 0 6px; font-size: 22px; letter-spacing: -0.02em; }
-  .promise p { margin: 0; color: var(--muted); font-size: 16px; }
-  .pill { display: block; width: 44px; height: 12px; border-radius: 999px; background: var(--muted-surface); position: relative; }
-  .pill::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 55%; border-radius: 999px; background: var(--ink); }
-  .pill.g::after { background: var(--green); width: 100%; }
+  /* Question + gauge */
+  .question { text-align: center; padding-block: 24px 120px; }
+  .ask { font: 700 clamp(30px, 4.2vw, 52px)/1.15 var(--f-head); letter-spacing: -0.03em; margin: 0 auto 20px; max-width: 18em; }
+  .ask .soft { color: var(--muted); }
+  .ask-sub { color: var(--muted); font-size: clamp(17px, 1.5vw, 20px); max-width: 30em; margin: 0 auto 48px; }
+  .gauge { background: var(--surface); border-radius: 28px; padding: 32px; box-shadow: var(--shadow); max-width: 560px; margin: 0 auto; text-align: left; }
+  .g-label { font-size: 15px; color: var(--muted); margin: 0; }
+  .g-fig { font-weight: 800; font-size: clamp(40px, 6vw, 56px); line-height: 1.1; letter-spacing: -0.03em; margin: 4px 0 22px; transition: color .3s; }
+  .track { position: relative; height: 34px; border-radius: 999px; background: var(--green); }
+  .spent { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 999px; background: var(--ink); transition: width .5s cubic-bezier(.4,0,.2,1); }
+  .g-legend { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 14px; font-size: 15px; color: var(--muted); }
+  .g-legend b { color: var(--text); font-weight: 600; }
+  .g-legend .keep b { color: var(--green); }
+  .feed { list-style: none; padding: 0; margin: 22px 0 0; border-top: 1px solid var(--line); min-height: 144px; }
+  .feed li { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 15px;
+    opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s; }
+  .feed li.in { opacity: 1; transform: none; }
+  .feed li small { color: var(--muted); margin-left: 6px; }
+  .g-note { text-align: center; color: var(--muted); font-size: 15px; margin: 20px auto 0; max-width: 30em; }
 
-  /* Features */
-  .feature { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding-block: 40px 120px; }
-  .feature.flip .copy { order: 2; }
-  .feature .shot { display: flex; justify-content: center; }
-  .feature .phone { position: relative; width: 300px; }
-  .eyebrow { display: inline-block; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
-  :lang(ko) .eyebrow { letter-spacing: 0; text-transform: none; }
-  h2 { font-size: clamp(32px, 4vw, 52px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 800; margin: 0 0 20px; }
-  :lang(ko) h2 { line-height: 1.2; }
-  .copy p { color: var(--muted); font-size: 19px; margin: 0 0 20px; max-width: 28em; }
-  .copy ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-  .copy li { display: flex; gap: 12px; align-items: baseline; font-size: 16px; }
-  .copy li::before { content: ""; flex: none; width: 18px; height: 6px; border-radius: 999px; background: var(--green); transform: translateY(-3px); }
+  /* Pillars */
+  .intro { max-width: 680px; padding-bottom: 56px; }
+  h2 { font: 800 clamp(32px, 4vw, 52px)/1.08 var(--f-head); letter-spacing: -0.035em; margin: 0 0 20px; }
+  :lang(ko) h2 { font-weight: 700; line-height: 1.2; letter-spacing: -0.04em; }
+  .intro p { color: var(--muted); font-size: 19px; margin: 0; }
+  .pillar { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding-block: 24px 120px; }
+  .pillar.flip .copy { order: 2; }
+  .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 14px; }
+  .eyebrow .n { font-family: "Inter Tight", sans-serif; font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 600; }
+  .pillar h3 { font: 800 clamp(28px, 3.2vw, 40px)/1.12 var(--f-head); letter-spacing: -0.03em; margin: 0 0 16px; }
+  :lang(ko) .pillar h3 { font-weight: 700; line-height: 1.25; }
+  .copy > p { color: var(--muted); font-size: 18px; margin: 0 0 28px; max-width: 28em; }
+  .points { list-style: none; padding: 0; margin: 0; display: grid; gap: 18px; }
+  .points li { display: grid; grid-template-columns: 28px 1fr; gap: 14px; }
+  .points b { display: block; font-weight: 600; font-size: 17px; }
+  .points span { color: var(--muted); font-size: 15.5px; }
+  .dot { width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: var(--on-ink); display: grid; place-items: center;
+    font: 700 14px/1 "Inter Tight", sans-serif; }
+  .extra { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15.5px; }
+  .shot { display: flex; justify-content: center; }
+  .annot { position: relative; width: 300px; }
+  .annot .phone { width: 100%; }
+  .annot .dot { position: absolute; z-index: 2; transform: translateY(-50%); box-shadow: 0 0 0 4px var(--bg), 0 6px 14px rgba(0,0,0,.18); }
+  .annot[data-side="left"] .dot { left: -46px; }
+  .annot[data-side="right"] .dot { right: -46px; }
+  .annot .dot::after { content: ""; position: absolute; top: 50%; height: 2px; width: 18px; background: var(--ink); }
+  .annot[data-side="left"] .dot::after { left: 28px; }
+  .annot[data-side="right"] .dot::after { right: 28px; }
 
-  /* Privacy band */
-  .band { background: var(--band); color: var(--band-text); border-radius: 36px; margin: 0 auto 120px; overflow: hidden; }
+  /* Yours band */
+  .band { background: var(--band); color: var(--band-text); border-radius: 36px; margin-bottom: 120px; overflow: hidden; }
   .band .inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; padding: 72px 64px 0; }
-  .band h2 { color: var(--band-text); }
-  .band p { color: var(--band-muted); font-size: 19px; margin: 0 0 28px; max-width: 30em; }
   .band .eyebrow { color: #4CC47A; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 72px; }
-  .chips span { font-size: 14px; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(255,250,240,.18); color: var(--band-text); }
-  .band .shot { align-self: end; display: flex; justify-content: center; }
-  .band .phone { position: relative; width: 300px; border-radius: 40px 40px 0 0; box-shadow: 0 0 0 9px #000, 0 0 0 10px #3a3a3a; margin-bottom: -2px; }
+  .band .eyebrow .n { color: var(--band-muted); }
+  .band h3 { font: 800 clamp(30px, 3.6vw, 46px)/1.1 var(--f-head); letter-spacing: -0.03em; margin: 0 0 18px; }
+  :lang(ko) .band h3 { font-weight: 700; line-height: 1.25; }
+  .band p { color: var(--band-muted); font-size: 18px; margin: 0 0 28px; max-width: 30em; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 72px; }
+  .tags span { font-size: 14px; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(255,250,240,.18); }
+  .band .shot { align-self: end; }
+  .band .phone { width: 300px; border-radius: 40px 40px 0 0; box-shadow: 0 0 0 9px #000, 0 0 0 10px #3a3a3a; margin-bottom: -2px; }
   .band .phone img { aspect-ratio: 1320 / 2000; object-position: top; }
 
-  /* CTA */
+  /* CTA, support, footer */
   .cta { text-align: center; padding-block: 0 120px; }
   .cta .stores { justify-content: center; }
   .cta h2 { margin-bottom: 28px; }
-
-  /* Support */
   .support { border-top: 1px solid var(--line); padding-block: 80px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; }
   .support h2 { font-size: 32px; }
   .support .contact { color: var(--muted); }
@@ -137,7 +167,6 @@
   summary::after { content: "+"; color: var(--muted); font-weight: 400; font-size: 22px; line-height: 1; }
   details[open] summary::after { content: "–"; }
   details p { margin: 0 0 20px; color: var(--muted); }
-
   footer { border-top: 1px solid var(--line); padding-block: 28px 48px; font-size: 14px; color: var(--muted); }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   footer nav { display: flex; gap: 20px; }
@@ -146,13 +175,14 @@
     .hero { grid-template-columns: 1fr; padding-block: 32px 72px; gap: 32px; }
     .phones { height: 520px; max-width: 440px; width: 100%; margin: 0 auto; }
     .phones .phone { width: 230px; }
-    .promises { grid-template-columns: 1fr; padding-bottom: 80px; }
-    .feature, .feature.flip { grid-template-columns: 1fr; gap: 40px; padding-block: 0 88px; }
-    .feature.flip .copy { order: 0; }
-    .feature .phone { width: 260px; }
+    .question { padding-block: 8px 88px; }
+    .gauge { padding: 24px; }
+    .pillar, .pillar.flip { grid-template-columns: 1fr; gap: 40px; padding-block: 0 88px; }
+    .pillar.flip .copy { order: 0; }
+    .annot { width: 250px; }
     .band { border-radius: 28px; }
     .band .inner { grid-template-columns: 1fr; padding: 48px 24px 0; gap: 8px; }
-    .chips { margin-bottom: 40px; }
+    .tags { margin-bottom: 40px; }
     .band .phone { width: 260px; }
     .support { grid-template-columns: 1fr; gap: 16px; padding-block: 64px; }
   }
@@ -160,9 +190,10 @@
     .phones { height: 440px; }
     .phones .phone { width: 196px; border-radius: 30px; }
     .store { height: 52px; }
+    .annot { width: 230px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .mark b { animation: none; } .store { transition: none; } html { scroll-behavior: auto; }
+    html { scroll-behavior: auto; } .store, .spent, .feed li, .g-fig { transition: none; }
   }
 </style>
 </head>
@@ -185,11 +216,11 @@
 </header>
 
 <main id="top">
+  <!-- 1. Hero: the philosophy -->
   <section class="wrap hero">
     <div>
-      <span class="mark" aria-hidden="true"><i></i><b></b></span>
-      <h1 data-i18n="heroTitle">Log spending<br>in <em>seconds.</em></h1>
-      <p class="lead" data-i18n="heroLead">An expense tracker with no sign-up, no ads, and no servers. Write down what you spent before you forget. It never leaves your phone.</p>
+      <h1 data-i18n="heroTitle">Know what you spend.<br><em>Keep the rest.</em></h1>
+      <p class="lead" data-i18n="heroLead">Log spending in seconds. No sign-up, no ads, and every entry stays on your phone.</p>
       <div class="stores" data-stores></div>
       <p class="meta" data-i18n="heroMeta">Free to download · iPhone and Android</p>
     </div>
@@ -199,66 +230,89 @@
     </div>
   </section>
 
-  <section class="wrap promises">
-    <div class="promise"><span class="pill" aria-hidden="true"></span>
-      <h3 data-i18n="p1t">No sign-up</h3><p data-i18n="p1d">Open it and start. No account, no login, no email.</p></div>
-    <div class="promise"><span class="pill" aria-hidden="true"></span>
-      <h3 data-i18n="p2t">No ads</h3><p data-i18n="p2d">Nothing to sell you and nothing tracking you.</p></div>
-    <div class="promise"><span class="pill g" aria-hidden="true"></span>
-      <h3 data-i18n="p3t">No servers</h3><p data-i18n="p3d">Everything stays on your device. Not even we can see it.</p></div>
-  </section>
-
-  <section class="wrap feature">
-    <div class="copy">
-      <span class="eyebrow" data-i18n="f1e">Fast entry</span>
-      <h2 data-i18n="f1t">Amount, note, category. Done.</h2>
-      <p data-i18n="f1d">Type it all without leaving the keyboard. Past entries autocomplete, so “Starbucks · Cafe” is one tap away.</p>
-      <ul>
-        <li data-i18n="f1a">Pin your go-to categories to the front</li>
-        <li data-i18n="f1b">Home Screen and Lock Screen widgets open the entry screen in one tap</li>
-        <li data-i18n="f1c">iOS 18 or later: add it to Control Center too</li>
-      </ul>
+  <!-- 2. The question, answered by the gauge -->
+  <section class="wrap question" aria-labelledby="ask">
+    <p class="ask" id="ask" data-i18n="ask"><span class="soft">You know what you earn.</span><br>Do you know what you spend?</p>
+    <p class="ask-sub" data-i18n="askSub">Paying by card makes spending easy to lose track of. margin brings it back, one quick entry at a time.</p>
+    <div class="gauge" id="gauge">
+      <p class="g-label" data-i18n="gLabel">Spent this month</p>
+      <p class="g-fig num" id="g-fig" aria-live="polite">$0.00</p>
+      <div class="track" aria-hidden="true"><div class="spent" id="g-bar"></div></div>
+      <div class="g-legend">
+        <span><span data-i18n="gIncome">Income</span> <b class="num" id="g-income"></b></span>
+        <span class="keep"><span data-i18n="gKeep">Left</span> <b class="num" id="g-keep"></b></span>
+      </div>
+      <ul class="feed" id="g-feed" aria-label="Recent entries"></ul>
     </div>
-    <div class="shot"><div class="phone"><img data-screen="02_add" src="assets/screens/en/02_add.jpg" alt="" loading="lazy" data-alt="f1alt"></div></div>
+    <p class="g-note" data-i18n="gNote">Every entry updates what you’ve spent this month. That’s the whole idea.</p>
   </section>
 
-  <section class="wrap feature flip">
+  <!-- 3. How the philosophy shows up in the app -->
+  <section class="wrap intro">
+    <h2 data-i18n="pTitle">Built so you <em>keep logging.</em></h2>
+    <p data-i18n="pLead">You only know what you spend if you write it down every time. Most people quit budgeting apps because that’s a chore. margin focuses on three things that make it easy to keep going.</p>
+  </section>
+
+  <section class="wrap pillar" id="fast">
     <div class="copy">
-      <span class="eyebrow" data-i18n="f2e">Stats at a glance</span>
-      <h2 data-i18n="f2t">See where it went.</h2>
-      <p data-i18n="f2d">This month’s spending, income, and what’s left, with every category split into fixed and variable costs.</p>
-      <ul>
-        <li data-i18n="f2a">A yearly table for the big picture</li>
-        <li data-i18n="f2b">Tap a month to open it, swipe to move between months</li>
-      </ul>
+      <div class="eyebrow"><span class="n">01</span><span data-i18n="f1e">Fast</span></div>
+      <h3 data-i18n="f1t">Amount, note, category. Done in seconds.</h3>
+      <p data-i18n="f1d">If logging takes effort, you stop doing it. So an entry is one screen and a few taps.</p>
+      <ol class="points">
+        <li><span class="dot">1</span><div><b data-i18n="f1p1">Straight to the amount</b><span data-i18n="f1p1d">The entry screen opens with the keypad up, ready for a number.</span></div></li>
+        <li><span class="dot">2</span><div><b data-i18n="f1p2">Categories one tap away</b><span data-i18n="f1p2d">Your favorites sit up front. Long-press a category to pin it.</span></div></li>
+        <li><span class="dot">3</span><div><b data-i18n="f1p3">Past entries autocomplete</b><span data-i18n="f1p3d">Tap “Lunch · Dining out” and it’s saved, note and category included.</span></div></li>
+      </ol>
+      <p class="extra" data-i18n="f1x">Home Screen and Lock Screen widgets, and Control Center on iOS 18, open the entry screen in one tap.</p>
     </div>
-    <div class="shot"><div class="phone"><img data-screen="03_stats_month" src="assets/screens/en/03_stats_month.jpg" alt="" loading="lazy" data-alt="f2alt"></div></div>
+    <div class="shot">
+      <div class="annot" data-side="left">
+        <span class="dot" style="top:20.5%">1</span>
+        <span class="dot" style="top:42%">2</span>
+        <span class="dot" style="top:61%">3</span>
+        <div class="phone"><img data-screen="02_add" data-alt="f1alt" src="assets/screens/en/02_add.jpg" alt="The entry screen" loading="lazy"></div>
+      </div>
+    </div>
   </section>
 
-  <section class="wrap feature">
+  <section class="wrap pillar flip" id="simple">
     <div class="copy">
-      <span class="eyebrow" data-i18n="f3e">Search</span>
-      <h2 data-i18n="f3t">Find it the way you’d say it.</h2>
-      <p data-i18n="f3d">Search by note, category, amount, or date. Natural dates like “September” or “yesterday” just work.</p>
+      <div class="eyebrow"><span class="n">02</span><span data-i18n="f2e">Simple</span></div>
+      <h3 data-i18n="f2t">Open it. See this month’s spending.</h3>
+      <p data-i18n="f2d">No account and no setup. The first and biggest number you see is what you’ve spent this month.</p>
+      <ol class="points">
+        <li><span class="dot">1</span><div><b data-i18n="f2p1">Spending, front and center</b><span data-i18n="f2p1d">Income and what’s left sit quietly below. The number you need comes first.</span></div></li>
+        <li><span class="dot">2</span><div><b data-i18n="f2p2">Grouped by day</b><span data-i18n="f2p2d">Every day shows its own total, so a big day stands out.</span></div></li>
+        <li><span class="dot">3</span><div><b data-i18n="f2p3">The + button never moves</b><span data-i18n="f2p3d">Log from the home screen with one thumb.</span></div></li>
+      </ol>
+      <p class="extra" data-i18n="f2x">Want more? Stats by category, a yearly table, and search that understands “September” or “yesterday”.</p>
     </div>
-    <div class="shot"><div class="phone"><img data-screen="05_search" src="assets/screens/en/05_search.jpg" alt="" loading="lazy" data-alt="f3alt"></div></div>
+    <div class="shot">
+      <div class="annot" data-side="right">
+        <span class="dot" style="top:16.5%">1</span>
+        <span class="dot" style="top:24.8%">2</span>
+        <span class="dot" style="top:93%">3</span>
+        <div class="phone"><img data-screen="01_home" data-alt="f2alt" src="assets/screens/en/01_home.jpg" alt="The home screen" loading="lazy"></div>
+      </div>
+    </div>
   </section>
 
-  <section class="wrap">
+  <section class="wrap" id="yours">
     <div class="band">
       <div class="inner">
         <div>
-          <span class="eyebrow" data-i18n="pve">Private by design</span>
-          <h2 data-i18n="pvt">Your money is your business.</h2>
-          <p data-i18n="pvd">margin makes no network requests. No analytics, no tracking, no account. Your entries are included in your phone’s iCloud or Google backup, and you can export them to move to a new device.</p>
-          <div class="chips">
-            <span data-i18n="c1">Light &amp; dark mode</span>
-            <span>English · 한국어</span>
-            <span data-i18n="c3">₩ $ € ¥ 元</span>
-            <span data-i18n="c4">Custom categories</span>
+          <div class="eyebrow"><span class="n">03</span><span data-i18n="f3e">Yours</span></div>
+          <h3 data-i18n="f3t">Nobody else sees it, so you can be honest.</h3>
+          <p data-i18n="f3d">You only see your real spending if you write down all of it, even the parts you’d rather not. So margin makes no network requests. No account, no ads, no analytics.</p>
+          <div class="tags">
+            <span data-i18n="t1">No servers</span>
+            <span data-i18n="t2">No account</span>
+            <span data-i18n="t3">No ads or tracking</span>
+            <span data-i18n="t4">Included in iCloud and Google device backups</span>
+            <span data-i18n="t5">Export and import</span>
           </div>
         </div>
-        <div class="shot"><div class="phone"><img data-screen="06_home_dark" src="assets/screens/en/06_home_dark.jpg" alt="" loading="lazy" data-alt="pvalt"></div></div>
+        <div class="shot"><div class="phone"><img data-screen="06_home_dark" data-alt="f3alt" src="assets/screens/en/06_home_dark.jpg" alt="The home screen in dark mode" loading="lazy"></div></div>
       </div>
     </div>
   </section>
@@ -314,63 +368,101 @@
 <script>
 (function () {
   var KO = {
+    title: "margin — 아는 만큼 남는다",
     navCta: "다운로드",
-    heroTitle: "쓴 돈, 잊기 전에<br><em>몇 초 만에.</em>",
-    heroLead: "가입도, 광고도, 서버도 없는 가계부. 쓴 돈을 잊기 전에 바로 기록하세요. 모든 기록은 내 폰에만 저장됩니다.",
+    heroTitle: "아는 만큼<br><em>남는다.</em>",
+    heroLead: "몇 초면 끝나는 지출 기록. 가입도, 광고도 없이 모든 기록은 내 폰에만 남아요.",
     heroMeta: "무료 다운로드 · iPhone과 Android",
-    p1t: "가입 없음", p1d: "열자마자 바로 시작. 계정도, 로그인도, 이메일도 없어요.",
-    p2t: "광고 없음", p2d: "팔 것도 없고, 따라다니는 추적도 없어요.",
-    p3t: "서버 없음", p3d: "모든 데이터는 기기 안에만. 개발자도 볼 수 없어요.",
-    f1e: "빠른 입력", f1t: "금액, 내용, 카테고리. 끝.",
-    f1d: "키보드에서 손을 떼지 않고 입력하세요. 전에 쓴 내용은 자동완성되고, 초성(ㅅㅌㅂㅅ)으로도 찾아져요.",
-    f1a: "자주 쓰는 카테고리는 맨 앞에 고정", f1b: "홈 화면·잠금 화면 위젯으로 탭 한 번에 입력", f1c: "iOS 18 이상: 제어 센터에도 추가",
+    ask: "<span class=\"soft\">월급이 얼마인지는 알아도,</span><br>이번 달 얼마 썼는지는 모르잖아요.",
+    askSub: "카드로 쓰다 보면 얼마 썼는지 감이 사라져요. margin은 몇 초짜리 기록으로 그 감각을 되돌려 줘요.",
+    gLabel: "이번 달 쓴 돈", gIncome: "수입", gKeep: "남은 돈",
+    gNote: "적을 때마다 이번 달 쓴 돈이 바로 보여요. margin이 하는 일은 이게 전부예요.",
+    pTitle: "계속 적게 되는 <em>세 가지 이유</em>",
+    pLead: "얼마 쓰는지 알려면 쓸 때마다 적어야 해요. 그런데 대부분 귀찮아서 가계부를 그만두죠. margin은 계속 적을 수 있게 만드는 세 가지에 집중했어요.",
+    f1e: "빠르게", f1t: "금액, 내용, 카테고리. 몇 초면 끝.",
+    f1d: "기록이 귀찮으면 결국 안 쓰게 돼요. 그래서 입력은 한 화면, 손가락 몇 번으로 끝나요.",
+    f1p1: "열자마자 금액부터", f1p1d: "입력 화면이 뜨면 키패드가 이미 올라와 있어요.",
+    f1p2: "카테고리는 탭 한 번", f1p2d: "자주 쓰는 카테고리는 맨 앞에. 길게 누르면 즐겨찾기로 고정돼요.",
+    f1p3: "전에 쓴 내용은 자동완성", f1p3d: "‘점심 · 외식’을 누르면 내용과 카테고리까지 한 번에 저장돼요. 초성(ㅈㅅ)으로도 찾아요.",
+    f1x: "홈 화면·잠금 화면 위젯과 iOS 18 제어 센터에서 탭 한 번으로 입력 화면을 열 수 있어요.",
     f1alt: "지출 입력 화면",
-    f2e: "한눈에 보는 통계", f2t: "어디에 썼는지 바로 보여요.",
-    f2d: "이번 달 지출, 수입, 남은 돈. 카테고리별 지출을 고정비와 변동비로 나눠 보여 줘요.",
-    f2a: "연간 표로 1년 흐름 확인", f2b: "월을 누르면 그 달로, 좌우로 밀어서 이동",
-    f2alt: "월간 통계 화면",
-    f3e: "검색", f3t: "말하듯 찾으세요.",
-    f3d: "내용, 카테고리, 금액, 날짜로 검색하세요. “9월”, “어제”처럼 말하듯 입력해도 돼요.",
-    f3alt: "검색 화면",
-    pve: "처음부터 개인적으로", pvt: "내 돈 이야기는 내 폰에만.",
-    pvd: "margin은 네트워크를 사용하지 않아요. 분석도, 추적도, 계정도 없습니다. 기록은 iCloud·Google 기기 백업에 함께 포함되고, 내보내기로 새 기기에 옮길 수 있어요.",
-    pvalt: "다크 모드 홈 화면",
-    c1: "라이트 · 다크 모드", c3: "원 · 달러 · 유로 · 엔 · 위안", c4: "카테고리 편집",
-    ctaT: "다음 커피 한 잔부터 시작하세요.",
+    f2e: "간단하게", f2t: "열면 이번 달 쓴 돈부터.",
+    f2d: "가입도 설정도 없어요. 앱을 열면 가장 먼저, 가장 크게 이번 달 지출이 보여요.",
+    f2p1: "이번 달 지출이 가장 크게", f2p1d: "수입과 남은 돈은 그 아래 작게. 먼저 알아야 할 숫자가 먼저예요.",
+    f2p2: "하루 단위로 묶어서", f2p2d: "날짜마다 그날 쓴 합계가 붙어서 많이 쓴 날이 바로 보여요.",
+    f2p3: "+ 버튼은 늘 같은 자리", f2p3d: "홈 화면에서 엄지 하나로 기록해요.",
+    f2x: "더 보고 싶을 땐 카테고리별 통계와 연간 표, 그리고 “9월”, “어제”처럼 말하듯 찾는 검색이 있어요.",
+    f2alt: "홈 화면",
+    f3e: "나만 보게", f3t: "아무도 안 보니까, 솔직하게.",
+    f3d: "민망한 소비까지 다 적어야 진짜 내 소비가 보여요. 그래서 margin은 네트워크를 쓰지 않아요. 계정도, 광고도, 분석 도구도 없어요.",
+    t1: "서버 없음", t2: "계정 없음", t3: "광고·추적 없음", t4: "iCloud·Google 기기 백업에 포함", t5: "내보내기 · 불러오기",
+    f3alt: "다크 모드 홈 화면",
+    ctaT: "다음 커피 한 잔부터 적어 보세요.",
     supT: "지원", supD: "문의나 제안은 이메일로 보내 주세요.",
     q1: "데이터는 어디에 저장되나요?", a1: "모든 데이터는 기기 안에만 저장됩니다. 서버나 로그인이 없어서 개발자도 볼 수 없어요.",
     q2: "기기를 바꾸면 데이터를 옮길 수 있나요?", a2: "설정 → 데이터 내보내기로 파일을 저장한 뒤, 새 기기에서 설정 → 데이터 불러오기를 하면 됩니다. iCloud 기기 백업이 켜져 있으면 백업 복원으로도 옮겨져요.",
     q3: "위젯은 어떻게 추가하나요?", a3: "홈 화면이나 잠금 화면을 길게 누르고 편집 → 위젯 추가에서 margin을 고르세요. 탭하면 바로 입력 화면이 열립니다.",
     privacy: "개인정보 처리방침",
-    iosSmall: "다운로드하기", playSmall: "다운로드하기",
-    title: "margin — 가입 없이 몇 초 만에 지출 기록"
+    iosSmall: "다운로드하기", playSmall: "다운로드하기"
   };
-  var EN = { f1alt: "Expense entry screen", f2alt: "Monthly stats screen", f3alt: "Search screen", pvalt: "Home screen in dark mode",
-    title: document.title };
+  var EN = { title: document.title, f1alt: "The entry screen", f2alt: "The home screen", f3alt: "The home screen in dark mode" };
 
-  // Store buttons are defined once and stamped into each slot.
+  // Demo month for the gauge. Pre-roll entries build up to `base`. The bar ends near the logo’s two-thirds.
+  var DEMO = {
+    en: { money: function (n) { return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); },
+      income: 4800, base: 2970,
+      preroll: [["Rent", "Housing", 1650], ["Utilities", "Housing", 142.3], ["Trader Joe’s", "Groceries", 67.41], ["Target", "Household", 23.4]] },
+    ko: { money: function (n) { return n.toLocaleString("ko-KR") + "원"; },
+      income: 3200000, base: 1980000,
+      preroll: [["월세", "주거비", 650000], ["관리비", "주거비", 184000], ["이마트", "장보기", 60900], ["다이소", "생활용품", 12000]] }
+  };
+
   var tpl = document.getElementById("store-tpl");
   document.querySelectorAll("[data-stores]").forEach(function (slot) { slot.appendChild(tpl.content.cloneNode(true)); });
+  document.querySelectorAll("[data-i18n]").forEach(function (el) { var k = el.getAttribute("data-i18n"); if (!(k in EN)) EN[k] = el.innerHTML; });
 
-  // Capture the English copy from the markup so it is the single source for EN.
-  document.querySelectorAll("[data-i18n]").forEach(function (el) {
-    var k = el.getAttribute("data-i18n"); if (!(k in EN)) EN[k] = el.innerHTML;
-  });
+  var lang = "en", spent = 0, timer = null, started = false;
+  var fig = document.getElementById("g-fig"), bar = document.getElementById("g-bar"), keep = document.getElementById("g-keep"),
+      inc = document.getElementById("g-income"), feed = document.getElementById("g-feed");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  function apply(lang) {
-    var dict = lang === "ko" ? KO : EN;
-    document.documentElement.lang = lang;
+  function paint() {
+    var d = DEMO[lang];
+    fig.textContent = d.money(spent);
+    keep.textContent = d.money(Math.round((d.income - spent) * 100) / 100);
+    inc.textContent = d.money(d.income);
+    bar.style.width = Math.min(100, spent / d.income * 100) + "%";
+  }
+  function addRow(r) {
+    var d = DEMO[lang], li = document.createElement("li");
+    li.innerHTML = "<span>" + r[0] + "<small>" + r[1] + "</small></span><span class=\"num\">" + d.money(r[2]) + "</span>";
+    feed.insertBefore(li, feed.firstChild);
+    setTimeout(function () { li.classList.add("in"); }, 30);
+    while (feed.children.length > 3) feed.removeChild(feed.lastChild);
+  }
+  function run() {
+    var d = DEMO[lang], steps = d.preroll.length, step = 0;
+    clearInterval(timer); feed.innerHTML = ""; spent = 0;
+    if (reduce) { spent = d.base; d.preroll.forEach(addRow); paint(); return; }
+    paint();
+    timer = setInterval(function () {
+      step++; spent = Math.round(d.base * step / steps * 100) / 100; paint(); addRow(d.preroll[step - 1]);
+      if (step >= steps) { clearInterval(timer); }
+    }, 550);
+  }
+
+  function apply(l) {
+    lang = l;
+    var dict = l === "ko" ? KO : EN;
+    document.documentElement.lang = l;
     document.title = dict.title;
-    document.querySelectorAll("[data-i18n]").forEach(function (el) {
-      var v = dict[el.getAttribute("data-i18n")]; if (v != null) el.innerHTML = v;
-    });
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { var v = dict[el.getAttribute("data-i18n")]; if (v != null) el.innerHTML = v; });
     document.querySelectorAll("img[data-screen]").forEach(function (img) {
-      img.src = "assets/screens/" + lang + "/" + img.getAttribute("data-screen") + ".jpg";
+      img.src = "assets/screens/" + l + "/" + img.getAttribute("data-screen") + ".jpg";
       var a = img.getAttribute("data-alt"); if (a) img.alt = dict[a];
     });
-    document.querySelectorAll(".lang button").forEach(function (b) {
-      b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
-    });
+    document.querySelectorAll(".lang button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === l)); });
+    if (started) run(); else paint();
   }
 
   var saved = null;
@@ -385,6 +477,13 @@
       try { localStorage.setItem("margin-lang", l); } catch (e) {}
     });
   });
+
+  // Start the gauge when it scrolls into view.
+  function start() { if (!started) { started = true; run(); } }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es, o) { if (es.some(function (e) { return e.isIntersecting; })) { start(); o.disconnect(); } }, { threshold: 0.4 })
+      .observe(document.getElementById("gauge"));
+  } else { start(); }
 })();
 </script>
 </body>
