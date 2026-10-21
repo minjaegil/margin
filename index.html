@@ -4,10 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>margin — Know what you spend. Keep the rest.</title>
-<meta name="description" content="margin is an expense tracker that takes seconds to use. No sign-up, no ads, and every entry stays on your phone. Free on iPhone and Android.">
+<meta name="description" content="margin is an expense tracker that takes seconds to use. No sign-up, no ads, no paid features, and every entry stays on your phone. Free on iPhone and Android.">
+<!-- Link previews read these without running JS, so they can't follow the visitor's language.
+     This page is the English card; ko/ is the same site with the Korean card (the app shares it when set to Korean). -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://minjaegil.github.io/margin/">
+<meta property="og:site_name" content="margin">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
 <meta property="og:title" content="margin — Know what you spend. Keep the rest.">
-<meta property="og:description" content="An expense tracker that takes seconds to use. No sign-up, no ads, nothing leaves your phone.">
-<meta property="og:image" content="assets/apple-touch-icon.png">
+<meta property="og:description" content="An expense tracker that takes seconds to use. No sign-up, no ads, every feature free, and your data stays on your phone.">
+<meta property="og:image" content="https://minjaegil.github.io/margin/assets/og-card-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="margin — Know what you spend. Keep the rest. No sign-up, no ads, all free.">
+<link rel="alternate" hreflang="ko" href="https://minjaegil.github.io/margin/ko/">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F6F4EE" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E0E10" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="assets/favicon.png">
@@ -153,10 +165,59 @@
   .band .phone { width: 300px; border-radius: 40px 40px 0 0; box-shadow: 0 0 0 9px #000, 0 0 0 10px #3a3a3a; margin-bottom: -2px; }
   .band .phone img { aspect-ratio: 1320 / 2000; object-position: top; }
 
+  /* Hero "free" line */
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+  .meta .free { font-weight: 700; color: var(--green); }
+
+  /* Add-ons */
+  .addons { padding-block: 0 120px; }
+  .addons-head { max-width: 640px; margin-bottom: 40px; }
+  .addons-head h3 { font: 800 clamp(28px, 3.2vw, 40px)/1.12 var(--f-head); letter-spacing: -0.03em; margin: 0 0 16px; }
+  :lang(ko) .addons-head h3 { font-weight: 700; line-height: 1.25; }
+  .addons-head p { color: var(--muted); font-size: 18px; margin: 0; }
+  .addon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .addon { background: var(--surface); border-radius: 28px; padding: 28px; display: flex; flex-direction: column; }
+  .addon h4 { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font: 700 22px/1.3 var(--f-head); letter-spacing: -0.02em; }
+  .addon h4 svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .addon-d { margin: 0 0 22px; color: var(--muted); font-size: 16px; }
+  .addon-n { margin: 18px 0 0; font-size: 15.5px; font-weight: 600; }
+  .addons-foot { margin: 20px 0 0; color: var(--muted); font-size: 15px; }
+  .mini { background: var(--bg); border-radius: 20px; padding: 18px; flex: 1; font-size: 15px; }
+  .mini small { display: block; color: var(--muted); font-size: 13px; }
+  .m-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 12px; }
+  .m-row b { font-size: 18px; font-weight: 700; }
+  .s-card { background: var(--surface); border-radius: 14px; padding: 6px 14px; }
+  .s-title { margin: 8px 0 4px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .s-line { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center; padding: 9px 0; border-top: 1px solid var(--line); }
+  .s-line .who small { transition: opacity .3s; opacity: 0; }
+  .s-line.on .who small { opacity: 1; }
+  .ck { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line); position: relative; transition: background .3s, border-color .3s; }
+  .s-line.me .ck { visibility: hidden; }
+  .s-line.on .ck { background: var(--green); border-color: var(--green); }
+  .s-line.on .ck::after { content: ""; position: absolute; left: 7px; top: 3.5px; width: 5px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  .s-line.on > .num { color: var(--muted); text-decoration: line-through; }
+  .s-meter { height: 14px; border-radius: 999px; background: var(--muted-surface); margin: 16px 0 10px; overflow: hidden; }
+  .s-ink { height: 100%; width: 100%; border-radius: 999px; background: var(--ink); transition: width .5s cubic-bezier(.4,0,.2,1); }
+  .s-now { margin: 0; display: flex; align-items: baseline; gap: 8px; color: var(--muted); }
+  .s-now b { color: var(--text); font-size: 20px; }
+  .s-done { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--green); opacity: 0; transition: opacity .3s; }
+  .s-done.on { opacity: 1; }
+  .t-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .t-pill { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: var(--surface); }
+  .t-pill svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+  .t-keep { font-size: 13px; color: var(--muted); }
+  .t-total { margin: 14px 0 0; font-size: 32px; font-weight: 800; letter-spacing: -0.02em; }
+  .t-count { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+  .t-bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .t-bars li { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; }
+  .t-bars i { grid-column: 1 / -1; height: 8px; border-radius: 999px; background: var(--muted-surface); position: relative; overflow: hidden; }
+  .t-bars i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); border-radius: 999px; background: var(--c); }
+
   /* CTA, support, footer */
   .cta { text-align: center; padding-block: 0 120px; }
   .cta .stores { justify-content: center; }
-  .cta h2 { margin-bottom: 28px; }
+  .cta h2 { margin-bottom: 12px; }
+  .cta-sub { color: var(--muted); font-size: 18px; margin: 0 0 28px; }
   .support { border-top: 1px solid var(--line); padding-block: 80px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; }
   .support h2 { font-size: 32px; }
   .support .contact { color: var(--muted); }
@@ -185,6 +246,9 @@
     .tags { margin-bottom: 40px; }
     .band .phone { width: 260px; }
     .support { grid-template-columns: 1fr; gap: 16px; padding-block: 64px; }
+    .addons { padding-block: 0 88px; }
+    .addon-grid { grid-template-columns: 1fr; }
+    .addon { padding: 22px; }
   }
   @media (max-width: 420px) {
     .phones { height: 440px; }
@@ -193,7 +257,7 @@
     .annot { width: 230px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; } .store, .spent, .feed li, .g-fig { transition: none; }
+    html { scroll-behavior: auto; } .store, .spent, .feed li, .g-fig, .s-ink, .ck, .s-done, .s-line .who small { transition: none; }
   }
 </style>
 </head>
@@ -222,7 +286,7 @@
       <h1 data-i18n="heroTitle">Know what you spend.<br><em>Keep the rest.</em></h1>
       <p class="lead" data-i18n="heroLead">Log spending in seconds. No sign-up, no ads, and every entry stays on your phone.</p>
       <div class="stores" data-stores></div>
-      <p class="meta" data-i18n="heroMeta">Free to download · iPhone and Android</p>
+      <p class="meta"><span class="free" data-i18n="heroFree">Every feature free</span><span data-i18n="heroMeta">No ads · No paid features · iPhone and Android</span></p>
     </div>
     <div class="phones" aria-hidden="true">
       <div class="phone back"><img data-screen="03_stats_month" src="assets/screens/en/03_stats_month.jpg" alt=""></div>
@@ -297,6 +361,45 @@
     </div>
   </section>
 
+  <!-- Optional add-ons: off by default, so they extend Simple rather than compete with it -->
+  <section class="wrap addons" id="addons">
+    <div class="addons-head">
+      <div class="eyebrow"><span data-i18n="adE">Add-ons</span></div>
+      <h3 data-i18n="adT">Simple by default.<br>More when you need it.</h3>
+      <p data-i18n="adD">Turn them on in Settings → Features → Add-ons. They start off, so the app stays as simple as you see above.</p>
+    </div>
+    <div class="addon-grid">
+      <article class="addon" id="split">
+        <h4><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3.2"/><circle cx="16.5" cy="9" r="2.6"/><path d="M2.8 19c.6-3.2 2.7-5 5.2-5s4.6 1.8 5.2 5M13.6 14.6c.9-.7 1.9-1 2.9-1 2.1 0 3.8 1.5 4.3 4.4"/></svg><span data-i18n="spT">Split</span></h4>
+        <p class="addon-d" data-i18n="spD">When you pay for everyone, what friends pay you back comes off your spending.</p>
+        <div class="mini" aria-hidden="true">
+          <div class="m-row"><span><span data-i18n="spItem">Dinner</span><small data-i18n="spCat">Dining out</small></span><b class="num" data-money="total"></b></div>
+          <div class="s-card">
+            <p class="s-title" data-i18n="spCard">Split · 3 people</p>
+            <div class="s-line me"><span class="ck"></span><span class="who" data-i18n="spMe">Your share</span><span class="num" data-money="share"></span></div>
+            <div class="s-line" data-step="1"><span class="ck"></span><span class="who"><span data-i18n="spP1">Sam</span><small data-i18n="spP1d">Received Oct 19</small></span><span class="num" data-money="share"></span></div>
+            <div class="s-line" data-step="2"><span class="ck"></span><span class="who"><span data-i18n="spP2">Jordan</span><small data-i18n="spP2d">Received Oct 20</small></span><span class="num" data-money="share"></span></div>
+          </div>
+          <div class="s-meter"><div class="s-ink" id="s-ink"></div></div>
+          <p class="s-now"><span data-i18n="spNow">Your spending</span> <b class="num" id="s-now"></b><span class="s-done" data-i18n="spDone">Settled</span></p>
+        </div>
+        <p class="addon-n" data-i18n="spN">Pay $90 for dinner. Once everyone pays you back, your spending is $30.</p>
+      </article>
+      <article class="addon" id="tag">
+        <h4><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.6V4.8c0-.7.6-1.3 1.3-1.3h7.8l8 8a1.3 1.3 0 0 1 0 1.8l-7 7a1.3 1.3 0 0 1-1.8 0z"/><circle cx="8.3" cy="8.3" r="1.5"/></svg><span data-i18n="tgT">Tags</span></h4>
+        <p class="addon-d" data-i18n="tgD">Group expenses across categories, like a trip, and see their total.</p>
+        <div class="mini" aria-hidden="true">
+          <div class="t-head"><span class="t-pill"><svg viewBox="0 0 24 24"><path d="M3.5 12.6V4.8c0-.7.6-1.3 1.3-1.3h7.8l8 8a1.3 1.3 0 0 1 0 1.8l-7 7a1.3 1.3 0 0 1-1.8 0z"/><circle cx="8.3" cy="8.3" r="1.5"/></svg><span data-i18n="tgName">Hawaii trip</span></span><span class="t-keep" data-i18n="tgKeep">Keeping</span></div>
+          <p class="t-total num" id="t-total"></p>
+          <p class="t-count" data-i18n="tgCount">12 expenses</p>
+          <ul class="t-bars" id="t-bars"></ul>
+        </div>
+        <p class="addon-n" data-i18n="tgN">See the whole trip in one total. Each expense still counts in its own category too.</p>
+      </article>
+    </div>
+    <p class="addons-foot" data-i18n="adF">All free. Turning one off never deletes your records, and they come back when you turn it on again.</p>
+  </section>
+
   <section class="wrap" id="yours">
     <div class="band">
       <div class="inner">
@@ -310,6 +413,7 @@
             <span data-i18n="t3">No ads or tracking</span>
             <span data-i18n="t4">Included in iCloud and Google device backups</span>
             <span data-i18n="t5">Export and import</span>
+            <span data-i18n="t6">No paid features</span>
           </div>
         </div>
         <div class="shot"><div class="phone"><img data-screen="06_home_dark" data-alt="f3alt" src="assets/screens/en/06_home_dark.jpg" alt="The home screen in dark mode" loading="lazy"></div></div>
@@ -319,6 +423,7 @@
 
   <section class="wrap cta" id="download">
     <h2 data-i18n="ctaT">Start with your next coffee.</h2>
+    <p class="cta-sub" data-i18n="ctaSub">Every feature is free. No ads, no subscription.</p>
     <div class="stores" data-stores></div>
   </section>
 
@@ -330,6 +435,12 @@
     <div>
       <details><summary data-i18n="q1">Where is my data stored?</summary>
         <p data-i18n="a1">Everything stays on your device. There is no server or account, so not even the developer can see it.</p></details>
+      <details><summary data-i18n="q4">Is it really all free?</summary>
+        <p data-i18n="a4">Yes. No ads, no paid features, no subscription. Add-ons like Split and Tags are free too.</p></details>
+      <details><summary data-i18n="q5">How do I turn on Split or Tags?</summary>
+        <p data-i18n="a5">Go to Settings → Features → Add-ons. They start off so the app stays simple, and turning one off never deletes your records.</p></details>
+      <details><summary data-i18n="q6">How does a split expense count toward my spending?</summary>
+        <p data-i18n="a6">You log what you paid, and every time a friend pays you back, that amount comes off your spending. It comes off the month you paid, so if you paid in September and got paid back in October, September’s spending goes down.</p></details>
       <details><summary data-i18n="q2">Can I move my data to a new device?</summary>
         <p data-i18n="a2">Use Settings → Export data to save a file, then Settings → Import data on the new device. If iCloud Backup is on, restoring a backup also brings it over.</p></details>
       <details><summary data-i18n="q3">How do I add a widget?</summary>
@@ -371,7 +482,7 @@
     navCta: "다운로드",
     heroTitle: "아는 만큼<br><em>남는다.</em>",
     heroLead: "몇 초면 끝나는 지출 기록. 가입도, 광고도 없이 모든 기록은 내 폰에만 남아요.",
-    heroMeta: "무료 다운로드 · iPhone과 Android",
+    heroFree: "전부 무료", heroMeta: "광고 없음 · 유료 기능 없음 · iPhone과 Android",
     ask: "<span class=\"soft\">월급이 얼마인지는 알아도,</span><br>이번 달 얼마 썼는지는 모르잖아요.",
     askSub: "카드로 쓰다 보면 얼마 썼는지 감이 사라져요. margin은 몇 초짜리 기록으로 그 감각을 되돌려 줘요.",
     gLabel: "이번 달 쓴 돈", gIncome: "수입", gKeep: "남은 돈",
@@ -394,9 +505,23 @@
     f2alt: "홈 화면",
     f3e: "나만 보게", f3t: "아무도 안 보니까, 솔직하게.",
     f3d: "민망한 소비까지 다 적어야 진짜 내 소비가 보여요. 그래서 margin은 네트워크를 쓰지 않아요. 계정도, 광고도, 분석 도구도 없어요.",
-    t1: "서버 없음", t2: "계정 없음", t3: "광고·추적 없음", t4: "iCloud·Google 기기 백업에 포함", t5: "내보내기 · 불러오기",
+    t1: "서버 없음", t2: "계정 없음", t3: "광고·추적 없음", t4: "iCloud·Google 기기 백업에 포함", t5: "내보내기 · 불러오기", t6: "유료 기능 없음",
     f3alt: "다크 모드 홈 화면",
-    ctaT: "다음 커피 한 잔부터 적어 보세요.",
+    adE: "추가 기능", adT: "기본은 단순하게,<br>필요하면 켜서.",
+    adD: "설정 → 기능 → 추가 기능에서 켜요. 처음엔 꺼져 있어서, 위에서 본 단순한 화면 그대로예요.",
+    spT: "나눠 내기", spD: "내가 결제하고 나눠 낸 돈, 받은 만큼 내 지출에서 빼요.",
+    spItem: "저녁", spCat: "외식", spCard: "나눠 내기 · 3명", spMe: "내 몫",
+    spP1: "민수", spP1d: "10월 19일 받음", spP2: "지은", spP2d: "10월 20일 받음",
+    spNow: "내 지출", spDone: "정산 완료",
+    spN: "12만 원을 결제해도, 다 받으면 내 지출은 4만 원.",
+    tgT: "태그", tgD: "여행처럼 여러 카테고리에 걸친 지출을 묶어 합계를 봐요.",
+    tgName: "제주 여행", tgKeep: "계속 붙이는 중", tgCount: "12건",
+    tgN: "여행 전체가 합계 하나로. 각 지출은 원래 카테고리에도 그대로 들어가요.",
+    adF: "모두 무료예요. 꺼도 기록은 지워지지 않고, 다시 켜면 그대로 보여요.",
+    ctaT: "다음 커피 한 잔부터 적어 보세요.", ctaSub: "모든 기능이 무료예요. 광고도 구독도 없어요.",
+    q4: "정말 전부 무료인가요?", a4: "네. 광고도, 유료 기능도, 구독도 없어요. 나눠 내기와 태그 같은 추가 기능도 모두 무료예요.",
+    q5: "나눠 내기와 태그는 어떻게 켜나요?", a5: "설정 → 기능 → 추가 기능에서 켜요. 처음엔 꺼져 있어서 앱이 단순하게 유지되고, 꺼도 기록은 지워지지 않아요.",
+    q6: "나눠 낸 지출은 내 지출에 어떻게 잡히나요?", a6: "결제한 금액으로 기록하고, 친구에게 받을 때마다 받은 만큼 내 지출에서 빠져요. 결제한 달에서 빠지기 때문에 9월에 결제하고 10월에 받아도 9월 지출이 줄어요.",
     supT: "지원", supD: "문의나 제안은 이메일로 보내 주세요.",
     q1: "데이터는 어디에 저장되나요?", a1: "모든 데이터는 기기 안에만 저장됩니다. 서버나 로그인이 없어서 개발자도 볼 수 없어요.",
     q2: "기기를 바꾸면 데이터를 옮길 수 있나요?", a2: "설정 → 데이터 내보내기로 파일을 저장한 뒤, 새 기기에서 설정 → 데이터 불러오기를 하면 됩니다. iCloud 기기 백업이 켜져 있으면 백업 복원으로도 옮겨져요.",
@@ -414,6 +539,11 @@
     ko: { money: function (n) { return n.toLocaleString("ko-KR") + "원"; },
       income: 3200000, base: 1980000,
       preroll: [["월세", "주거비", 650000], ["관리비", "주거비", 184000], ["이마트", "장보기", 60900], ["다이소", "생활용품", 12000]] }
+  };
+  // Add-on illustrations. Split: 3 equal shares. Tag bars are [name, amount, color]; they add up to the tag total.
+  var ADDON = {
+    en: { total: 90, share: 30, tag: [["Lodging", 840, "#8A86B8"], ["Dining out", 312.4, "#D9876E"], ["Car rental", 286.5, "#6E9CC9"], ["Cafe", 48.6, "#A08B7D"]] },
+    ko: { total: 120000, share: 40000, tag: [["숙박", 280000, "#8A86B8"], ["외식", 168300, "#D9876E"], ["렌터카", 154000, "#6E9CC9"], ["카페", 40000, "#A08B7D"]] }
   };
 
   var tpl = document.getElementById("store-tpl");
@@ -450,6 +580,34 @@
     }, 550);
   }
 
+  // Split: friends pay back one by one, and the ink (your spending) shrinks to your share.
+  var splitTimers = [], splitStarted = false;
+  function splitPaint(paid) {
+    var a = ADDON[lang], d = DEMO[lang], now = a.total - a.share * paid;
+    document.getElementById("s-now").textContent = d.money(now);
+    document.getElementById("s-ink").style.width = (now / a.total * 100) + "%";
+    document.querySelectorAll("#split .s-line[data-step]").forEach(function (el) { el.classList.toggle("on", +el.getAttribute("data-step") <= paid); });
+    document.querySelector("#split .s-done").classList.toggle("on", paid >= 2);
+  }
+  function splitRun() {
+    splitTimers.forEach(clearTimeout); splitTimers = [];
+    if (reduce) { splitPaint(2); return; }
+    splitPaint(0);
+    splitTimers.push(setTimeout(function () { splitPaint(1); }, 900));
+    splitTimers.push(setTimeout(function () { splitPaint(2); }, 1800));
+  }
+  function addonsPaint() {
+    var a = ADDON[lang], d = DEMO[lang];
+    document.querySelectorAll("#split [data-money]").forEach(function (el) { el.textContent = d.money(a[el.getAttribute("data-money")]); });
+    var sum = 0, max = a.tag[0][1];
+    document.getElementById("t-bars").innerHTML = a.tag.map(function (t) {
+      sum += t[1];
+      return "<li><span>" + t[0] + "</span><span class=\"num\">" + d.money(t[1]) + "</span><i style=\"--w:" + (t[1] / max * 100) + "%;--c:" + t[2] + "\"></i></li>";
+    }).join("");
+    document.getElementById("t-total").textContent = d.money(Math.round(sum * 100) / 100);
+    if (splitStarted) splitRun(); else splitPaint(0);
+  }
+
   function apply(l) {
     lang = l;
     var dict = l === "ko" ? KO : EN;
@@ -462,6 +620,7 @@
     });
     document.querySelectorAll(".lang button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === l)); });
     if (started) run(); else paint();
+    addonsPaint();
   }
 
   var saved = null;
@@ -477,12 +636,16 @@
     });
   });
 
-  // Start the gauge when it scrolls into view.
+  // Start each animation when it scrolls into view.
   function start() { if (!started) { started = true; run(); } }
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (es, o) { if (es.some(function (e) { return e.isIntersecting; })) { start(); o.disconnect(); } }, { threshold: 0.4 })
-      .observe(document.getElementById("gauge"));
-  } else { start(); }
+  function startSplit() { if (!splitStarted) { splitStarted = true; splitRun(); } }
+  function whenSeen(id, fn) {
+    if (!("IntersectionObserver" in window)) { fn(); return; }
+    new IntersectionObserver(function (es, o) { if (es.some(function (e) { return e.isIntersecting; })) { fn(); o.disconnect(); } }, { threshold: 0.4 })
+      .observe(document.getElementById(id));
+  }
+  whenSeen("gauge", start);
+  whenSeen("split", startSplit);
 })();
 </script>
 </body>
