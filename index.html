@@ -33,7 +33,7 @@
   /* App tokens (lib/shared/theme/app_colors.dart) */
   :root {
     --bg: #F6F4EE; --surface: #FFFFFF; --muted-surface: #ECE9E1;
-    --text: #22211F; --muted: #6F6E6A; --line: #E2DED5;
+    --text: #22211F; --muted: #686763; --line: #E2DED5;
     --ink: #22211F; --on-ink: #F6F4EE; --green: #1A8048;
     --band: #22211F; --band-text: #F1EFEA; --band-muted: #A9A69E;
     --shadow: 0 30px 60px -20px rgba(40,30,10,.28), 0 12px 24px -12px rgba(40,30,10,.18);
@@ -129,7 +129,7 @@
   .intro p { color: var(--muted); font-size: 19px; margin: 0; }
   .pillar { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding-block: 24px 120px; }
   .pillar.flip .copy { order: 2; }
-  .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 14px; }
+  .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
   .eyebrow .n { font-family: "Inter Tight", sans-serif; font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 600; }
   .pillar h3 { font: 800 clamp(28px, 3.2vw, 40px)/1.12 var(--f-head); letter-spacing: -0.03em; margin: 0 0 16px; }
   :lang(ko) .pillar h3 { font-weight: 700; line-height: 1.25; }
@@ -154,7 +154,7 @@
   /* Yours band */
   .band { background: var(--band); color: var(--band-text); border-radius: 36px; margin-bottom: 120px; overflow: hidden; }
   .band .inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; padding: 72px 64px 0; }
-  .band .eyebrow { color: #4CC47A; }
+  .band .eyebrow { color: var(--band-text); }
   .band .eyebrow .n { color: var(--band-muted); }
   .band h3 { font: 800 clamp(30px, 3.6vw, 46px)/1.1 var(--f-head); letter-spacing: -0.03em; margin: 0 0 18px; }
   :lang(ko) .band h3 { font-weight: 700; line-height: 1.25; }
@@ -354,7 +354,7 @@
     <div class="shot">
       <div class="annot" data-side="right">
         <span class="dot" style="top:16.5%">1</span>
-        <span class="dot" style="top:24.8%">2</span>
+        <span class="dot" style="top:28.2%">2</span>
         <span class="dot" style="top:93%">3</span>
         <div class="phone"><img data-screen="01_home" data-alt="f2alt" src="assets/screens/en/01_home.jpg" alt="The home screen" loading="lazy"></div>
       </div>
