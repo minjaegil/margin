@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>margin — Know what you spend. Keep the rest.</title>
-<meta name="description" content="margin is an expense tracker that takes seconds to use. No sign-up, no ads, no paid features, and every entry stays on your phone. Free on iPhone and Android.">
+<title>margin — Run your month like a business</title>
+<meta name="description" content="margin shows what came in, what went out, and what you kept this month. Log in seconds. No sign-up, no ads, no paid features, and every entry stays on your phone. Free on iPhone and Android.">
 <!-- Link previews read these without running JS, so they can't follow the visitor's language.
      This page is the English card; ko/ is the same site with the Korean card (the app shares it when set to Korean). -->
 <meta property="og:type" content="website">
@@ -12,12 +12,12 @@
 <meta property="og:site_name" content="margin">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ko_KR">
-<meta property="og:title" content="margin — Know what you spend. Keep the rest.">
-<meta property="og:description" content="An expense tracker that takes seconds to use. No sign-up, no ads, every feature free, and your data stays on your phone.">
+<meta property="og:title" content="margin — Run your month like a business">
+<meta property="og:description" content="See what came in, what went out, and what you kept this month. Log in seconds. No sign-up, no ads, every feature free, and your data stays on your phone.">
 <meta property="og:image" content="https://minjaegil.github.io/margin/assets/og-card-en.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="margin — Know what you spend. Keep the rest. No sign-up, no ads, all free.">
+<meta property="og:image:alt" content="margin — Run your month like a business. No sign-up, no ads, all free.">
 <link rel="alternate" hreflang="ko" href="https://minjaegil.github.io/margin/ko/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F6F4EE" media="(prefers-color-scheme: light)">
@@ -283,8 +283,8 @@
   <!-- 1. Hero: the philosophy -->
   <section class="wrap hero">
     <div>
-      <h1 data-i18n="heroTitle">Know what you spend.<br><em>Keep the rest.</em></h1>
-      <p class="lead" data-i18n="heroLead">Log spending in seconds. No sign-up, no ads, and every entry stays on your phone.</p>
+      <h1 data-i18n="heroTitle">Run your month<br><em>like a business.</em></h1>
+      <p class="lead" data-i18n="heroLead">What came in, what went out, what you kept this month. Log in seconds. No sign-up, no ads, all on your phone.</p>
       <div class="stores" data-stores></div>
       <p class="meta"><span class="free" data-i18n="heroFree">Every feature free</span><span data-i18n="heroMeta">No ads · No paid features · iPhone and Android</span></p>
     </div>
@@ -308,7 +308,7 @@
       </div>
       <ul class="feed" id="g-feed" aria-label="Recent entries"></ul>
     </div>
-    <p class="g-note" data-i18n="gNote">Every entry updates what you’ve spent this month. That’s the whole idea.</p>
+    <p class="g-note" data-i18n="gNote">Every entry updates what you’ve spent and what’s left this month. Not your balance, just this month. Know what you spend, keep the rest.</p>
   </section>
 
   <!-- 3. How the philosophy shows up in the app -->
@@ -433,6 +433,8 @@
       <p class="contact"><span data-i18n="supD">Questions or ideas? Email us at</span><br><a href="mailto:minjaegil05@gmail.com">minjaegil05@gmail.com</a></p>
     </div>
     <div>
+      <details><summary data-i18n="q7">Does it show my balance or net worth?</summary>
+        <p data-i18n="a7">No. margin shows what you kept this month: what came in minus what went out. Your bank and brokerage apps know your balances best, so savings deposits, buying or selling stock, and transfers between your accounts aren’t counted here.</p></details>
       <details><summary data-i18n="q1">Where is my data stored?</summary>
         <p data-i18n="a1">Everything stays on your device. There is no server or account, so not even the developer can see it.</p></details>
       <details><summary data-i18n="q4">Is it really all free?</summary>
@@ -441,6 +443,8 @@
         <p data-i18n="a5">Go to Settings → Features → Add-ons. They start off so the app stays simple, and turning one off never deletes your records.</p></details>
       <details><summary data-i18n="q6">How does a split expense count toward my spending?</summary>
         <p data-i18n="a6">You log what you paid, and every time a friend pays you back, that amount comes off your spending. It comes off the month you paid, so if you paid in September and got paid back in October, September’s spending goes down.</p></details>
+      <details><summary data-i18n="q8">When do I log a card purchase?</summary>
+        <p data-i18n="a8">On the day you spent it, not when the card bill is paid. Paying the bill isn’t new spending, so don’t log it again.</p></details>
       <details><summary data-i18n="q2">Can I move my data to a new device?</summary>
         <p data-i18n="a2">Use Settings → Export data to save a file, then Settings → Import data on the new device. If iCloud Backup is on, restoring a backup also brings it over.</p></details>
       <details><summary data-i18n="q3">How do I add a widget?</summary>
@@ -478,15 +482,15 @@
 <script>
 (function () {
   var KO = {
-    title: "margin — 아는 만큼 남는다",
+    title: "margin — 나를 경영하는 가계부",
     navCta: "다운로드",
-    heroTitle: "아는 만큼<br><em>남는다.</em>",
-    heroLead: "몇 초면 끝나는 지출 기록. 가입도, 광고도 없이 모든 기록은 내 폰에만 남아요.",
+    heroTitle: "나를 경영하는<br><em>가계부.</em>",
+    heroLead: "이번 달 얼마 벌고, 얼마 쓰고, 얼마 남겼는지 몇 초짜리 기록으로 봐요. 가입도 광고도 없이 내 폰에만.",
     heroFree: "전부 무료", heroMeta: "광고 없음 · 유료 기능 없음 · iPhone과 Android",
     ask: "<span class=\"soft\">월급이 얼마인지는 알아도,</span><br>이번 달 얼마 썼는지는 모르잖아요.",
     askSub: "카드로 쓰다 보면 얼마 썼는지 감이 사라져요. margin은 몇 초짜리 기록으로 그 감각을 되돌려 줘요.",
     gLabel: "이번 달 쓴 돈", gIncome: "수입", gKeep: "남은 돈",
-    gNote: "적을 때마다 이번 달 쓴 돈이 바로 보여요. margin이 하는 일은 이게 전부예요.",
+    gNote: "적을 때마다 이번 달 쓴 돈과 남은 돈이 바로 보여요. 통장 잔고가 아니라 이번 달만. 아는 만큼 남아요.",
     pTitle: "계속 적게 되는 <em>세 가지 이유</em>",
     pLead: "얼마 쓰는지 알려면 쓸 때마다 적어야 해요. 그런데 대부분 귀찮아서 가계부를 그만두죠. margin은 계속 적을 수 있게 만드는 세 가지에 집중했어요.",
     f1e: "빠르게", f1t: "금액, 내용, 카테고리. 몇 초면 끝.",
@@ -523,6 +527,8 @@
     q5: "나눠 내기와 태그는 어떻게 켜나요?", a5: "설정 → 기능 → 추가 기능에서 켜요. 처음엔 꺼져 있어서 앱이 단순하게 유지되고, 꺼도 기록은 지워지지 않아요.",
     q6: "나눠 낸 지출은 내 지출에 어떻게 잡히나요?", a6: "결제한 금액으로 기록하고, 친구에게 받을 때마다 받은 만큼 내 지출에서 빠져요. 결제한 달에서 빠지기 때문에 9월에 결제하고 10월에 받아도 9월 지출이 줄어요.",
     supT: "지원", supD: "문의나 제안은 이메일로 보내 주세요.",
+    q7: "잔고나 자산도 보여 주나요?", a7: "아니요. margin은 이번 달 얼마 남겼는지(들어온 돈 − 나간 돈)만 봐요. 잔고와 자산은 은행·증권 앱이 더 정확해요. 그래서 적금 넣기, 주식 사고팔기, 내 계좌끼리 이체는 수입이나 지출로 적지 않아요.",
+    q8: "카드로 쓴 돈은 언제 적나요?", a8: "카드값이 빠지는 날이 아니라 쓴 날 적어요. 카드값을 내는 건 새로 쓴 돈이 아니라서 다시 적지 않아요.",
     q1: "데이터는 어디에 저장되나요?", a1: "모든 데이터는 기기 안에만 저장됩니다. 서버나 로그인이 없어서 개발자도 볼 수 없어요.",
     q2: "기기를 바꾸면 데이터를 옮길 수 있나요?", a2: "설정 → 데이터 내보내기로 파일을 저장한 뒤, 새 기기에서 설정 → 데이터 불러오기를 하면 됩니다. iCloud 기기 백업이 켜져 있으면 백업 복원으로도 옮겨져요.",
     q3: "위젯은 어떻게 추가하나요?", a3: "홈 화면이나 잠금 화면을 길게 누르고 편집 → 위젯 추가에서 margin을 고르세요. 탭하면 바로 입력 화면이 열립니다.",
